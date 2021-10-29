@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="js/pixi.min.js"></script>
+    <script>
+		var app = new PIXI.Application(375, 750);
+		document.body.appendChild(app.view);
+		
+		//背景
+		var bg = new PIXI.Sprite.fromImage("res/bg.png");
+		app.stage.addChild(bg);
+		bg.scale.x = 0.23;
+		bg.scale.y = 0.23;
+		
+		//放映机主体
+		var projector = new PIXI.Sprite.fromImage("res/projector.png");
+		projector.x = 175;
+		projector.y = 580;
+		projector.anchor.set(0.5,0.5);
+		app.stage.addChild(projector);
+		projector.scale.x = 0.23;
+		projector.scale.y = 0.23;
+		
+		//左轮子
+		var wheelL = new PIXI.Sprite.fromImage("res/wheelL.png");
+		wheelL.x = 110;
+		wheelL.y = 560;
+		wheelL.anchor.set(0.5,0.5);
+		app.stage.addChild(wheelL);
+		wheelL.scale.x = 0.23;
+		wheelL.scale.y = 0.23;
+		
+		//右轮子
+		var wheelR = new PIXI.Sprite.fromImage("res/wheelR.png");
+		wheelR.x = 210;
+		wheelR.y = 520;
+		wheelR.anchor.set(0.49,0.55);
+		app.stage.addChild(wheelR);
+		wheelR.scale.x = 0.23;
+		wheelR.scale.y = 0.23;
+		
+		//光影
+		var light = new PIXI.Sprite.fromImage("res/light.png");
+		light.x = 360;
+		light.y = 548;
+		light.anchor.set(0.5,0.5);
+		app.stage.addChild(light);
+		light.scale.x = 0.23;
+		light.scale.y = 0.23;
+		light.alpha = 0;
+		
+		//文字
+		var text1 = new PIXI.Sprite.fromImage("res/text1.png");
+		text1.x = 200;
+		text1.y = 175;
+		text1.anchor.set(0.5,0.5);
+		app.stage.addChild(text1);
+		text1.scale.x = 0.23;
+		text1.scale.y = 0.23;
+		text1.alpha = 0;
+		
+		var text2 = new PIXI.Sprite.fromImage("res/text2.png");
+		text2.x = 120;
+		text2.y = 350;
+		text2.anchor.set(0.5,0.5);
+		app.stage.addChild(text2);
+		text2.scale.x = 0.23;
+		text2.scale.y = 0.23;
+		text2.alpha = 0;
+		
+		var text3 = new PIXI.Sprite.fromImage("res/text3.png");
+		text3.x = 145;
+		text3.y = 390;
+		text3.anchor.set(0.5,0.5);
+		app.stage.addChild(text3);
+		text3.scale.x = 0.23;
+		text3.scale.y = 0.23;
+		text3.alpha = 0;
+		
+		var text4 = new PIXI.Sprite.fromImage("res/text4.png");
+		text4.x = 170;
+		text4.y = 425;
+		text4.anchor.set(0.5,0.5);
+		app.stage.addChild(text4);
+		text4.scale.x = 0.23;
+		text4.scale.y = 0.23;
+		text4.alpha = 0;
+		
+		//点击放映机，轮子旋转，出现光影和文字
+		projector.interactive = true;
+		projector.on("click",wheelRotate);
+		function animate() {
+			if(wheelL.rotation<=Math.PI*9)
+			{
+		    wheelL.rotation += Math.PI/60;
+			wheelR.rotation += Math.PI/30;
+			light.alpha += 0.005;
+			text1.alpha += 0.005;
+			if(light.alpha>1){
+				light.alpha=1;
+			}
+			if(text1.alpha>1){
+				text1.alpha=1;
+			}
+			if(text1.alpha>0.5){
+				text2.alpha += 0.005;
+			}
+			if(text2.alpha>0.5){
+				text3.alpha += 0.005;
+			}
+			if(text3.alpha>0.5){
+				text4.alpha += 0.005;
+			}
+			}
+			else
+			{
+				
+			}
+		}
+		function wheelRotate() {
+			app.ticker.add(animate);
+		}
+    </script>
+	<p></p>
+</body>
+</html>
